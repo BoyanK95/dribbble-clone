@@ -14,7 +14,19 @@ type Provider = {
 type Providers = Record<string, Provider>;
 
 const AuthProviders = () => {
-    const [providers, setpPoviders] = useState<Providers | null>(null);
+    const [providers, setPoviders] = useState<Providers | null>(null);
+
+    useEffect(() => {
+        const fetchProviders = async () => {
+          const res = await getProviders()
+          console.log(res);
+          
+  
+          setPoviders(res)
+        }
+  
+        fetchProviders()
+      }, [])
 
     if (providers) {
         return (
