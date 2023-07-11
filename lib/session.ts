@@ -4,8 +4,10 @@ import { AdapterUser } from 'next-auth/adapters';
 import GoogleProvider from 'next-auth/providers/google';
 import jsonwebtoken from 'jsonwebtoken';
 import { JWT } from 'next-auth/jwt';
-import { SessionInterface, UserProfile } from '@/common.type';
+
 import { createUser, getUser } from './actions';
+import { SessionInterface, UserProfile } from '@/common.type';
+
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -52,23 +54,22 @@ export const authOptions: NextAuthOptions = {
                 };
 
                 return newSession;
-            } catch (error) {
-                console.log('Error retriving user data', error);
+            } catch (error: any) {
+                console.error('Error retrieving user data: ', error.message);
                 return session;
             }
         },
-
         async signIn({ user }: { user: AdapterUser | User }) {
             try {
-                const userExist = (await getUser(user?.email as string)) as { user?: UserProfile };
+                const userExists = (await getUser(user?.email as string)) as { user?: UserProfile };
 
-                if (!userExist.user) {
-                    createUser(user.name as string, user.email as string, user.image as string);
+                if (!userExists.user) {
+                    await createUser(user.name as string, user.email as string, user.image as string);
                 }
 
                 return true;
             } catch (error: any) {
-                console.log(error);
+                console.log('Error checking if user exists: ', error.message);
                 return false;
             }
         }
