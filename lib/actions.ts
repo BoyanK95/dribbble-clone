@@ -9,9 +9,12 @@ const client = new GraphQLClient(apiUrl);
 
 const makeGraphQLRequest = async (query: string, variables = {}) => {
     try {
-        const client = new GraphQLClient('apiUrl');
         return await client.request(query, variables);
     } catch (error) {
         throw error;
     }
 };
+
+export const getUser = (email: string) => {
+    return makeGraphQLRequest()
+}
