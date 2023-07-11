@@ -16,7 +16,7 @@ export const authOptions: NextAuthOptions = {
     ],
     jwt: {
         encode: ({ secret, token }) => {
-            const encodeedToken = jsonwebtoken.sign(
+            const encodedToken = jsonwebtoken.sign(
                 {
                     ...token,
                     iss: 'grafbase',
@@ -25,17 +25,16 @@ export const authOptions: NextAuthOptions = {
                 secret
             );
 
-            return encodeedToken;
+            return encodedToken;
         },
         decode: async ({ secret, token }) => {
-            const decodedToken = jsonwebtoken.verify(token!, secret) as JWT
-
-            return decodedToken
+            const decodedToken = jsonwebtoken.verify(token!, secret);
+            return decodedToken as JWT;
         }
     },
     theme: {
         colorScheme: 'light',
-        logo: '/logo.png'
+        logo: '/logo.svg'
     },
     callbacks: {
         async session({ session }) {
