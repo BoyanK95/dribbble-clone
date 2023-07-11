@@ -4,7 +4,8 @@ import { AdapterUser } from 'next-auth/adapters';
 import GoogleProvider from 'next-auth/providers/google';
 import jsonwebtoken from 'jsonwebtoken';
 import { JWT } from 'next-auth/jwt';
-import { SessionInterface } from '@/common.type';
+import { SessionInterface, UserProfile } from '@/common.type';
+import { getUser } from './actions';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -31,9 +32,12 @@ export const authOptions: NextAuthOptions = {
         },
         async signIn({ user }: { user: AdapterUser | User }) {
             try {
-                //get the user if they exist
+                const userExist = await getUser(user?.email as string) as {user?: UserProfile}
 
-                //if they don't exist, create them
+                if (!userExist.user) {
+                    // await 
+                }
+
                 return true;
             } catch (error: any) {
                 console.log(error);
