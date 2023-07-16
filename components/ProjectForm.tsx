@@ -16,7 +16,7 @@ const handleStateChange = (fieldName: string, value: string) => {};
 const ProjectForm = ({ type, session }: Props) => {
     const form = {
         image: '',
-        title: '',
+        title: ''
     };
 
     return (
@@ -35,9 +35,34 @@ const ProjectForm = ({ type, session }: Props) => {
                     <Image src={form.image} className='sm:p-10 object-contain z-20' alt='Project poster' fill />
                 )}
             </div>
-
-            <div>
-              <FormField title='Title' state={form.title} placeholder='Flexibble' setState={(value: string) => handleStateChange('title', value)}/>
+            <FormField
+                title='Title'
+                state={form.title}
+                placeholder='Flexibble'
+                setState={(value: string) => handleStateChange('title', value)}
+            />
+            <FormField
+                type='url'
+                title='Description'
+                state={form.description}
+                placeholder='Showcase and discover remarkable developer projects'
+                setState={(value: string) => handleStateChange('description', value)}
+            />
+            <FormField
+                type='url'
+                title='GitHub URL'
+                state={form.githubUrl}
+                placeholder='https://github.com/BoyanK95'
+                setState={(value: string) => handleStateChange('githubUrl', value)}
+            />
+            <FormField
+                title='Title'
+                state={form.title}
+                placeholder='Flexibble'
+                setState={(value: string) => handleStateChange('title', value)}
+            />
+            <div className='flexStart w-full'>
+                  <button>Create</button>
             </div>
         </form>
     );
