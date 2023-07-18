@@ -3,6 +3,8 @@ import { SessionInterface } from '@/common.type';
 import Image from 'next/image';
 import { ChangeEvent } from 'react';
 import FormField from './FormField';
+import CustomMenu from './CustomMenu';
+import { categoryFilters } from '@/constants';
 
 type Props = {
     type: string;
@@ -16,7 +18,11 @@ const handleStateChange = (fieldName: string, value: string) => {};
 const ProjectForm = ({ type, session }: Props) => {
     const form = {
         image: '',
-        title: ''
+        title: '',
+        description: '',
+        liveSiteUrl: '',
+        githubUrl: '',
+        category: ''
     };
 
     return (
@@ -35,14 +41,12 @@ const ProjectForm = ({ type, session }: Props) => {
                 />
                 {form.image && <Image src={form?.image} className='sm:p-10 object-contain z-20' alt='image' fill />}
             </div>
-
             <FormField
                 title='Title'
                 state={form.title}
                 placeholder='Flexibble'
                 setState={(value) => handleStateChange('title', value)}
             />
-
             <FormField
                 title='Description'
                 state={form.description}
@@ -50,7 +54,6 @@ const ProjectForm = ({ type, session }: Props) => {
                 isTextArea
                 setState={(value) => handleStateChange('description', value)}
             />
-
             <FormField
                 type='url'
                 title='Website URL'
@@ -58,13 +61,18 @@ const ProjectForm = ({ type, session }: Props) => {
                 placeholder='https://boyank-portfolio.vercel.app/'
                 setState={(value) => handleStateChange('liveSiteUrl', value)}
             />
-
             <FormField
                 type='url'
                 title='GitHub URL'
                 state={form.githubUrl}
                 placeholder='https://github.com/BoyanK95'
                 setState={(value) => handleStateChange('githubUrl', value)}
+            />
+            <CustomMenu
+                title='Category'
+                state={form.category}
+                filters={categoryFilters}
+                setState={(value: string) => handleStateChange('category', value)}
             />
             <div className='flexStart w-full'>
                 <button>Create</button>
