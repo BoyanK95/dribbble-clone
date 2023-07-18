@@ -5,6 +5,7 @@ import { ChangeEvent, useState } from 'react';
 import FormField from './FormField';
 import CustomMenu from './CustomMenu';
 import { categoryFilters } from '@/constants';
+import Button from './Button';
 
 type Props = {
     type: string;
@@ -13,7 +14,7 @@ type Props = {
 
 const ProjectForm = ({ type, session }: Props) => {
     const handleFormSubmit = (e: React.FormEvent) => {};
-    
+
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
 
@@ -22,18 +23,18 @@ const ProjectForm = ({ type, session }: Props) => {
         if (!file) return;
 
         if (!file.type.includes('image')) {
-            return alert('Please upload an image file')
+            return alert('Please upload an image file');
         }
 
-        const reader = new FileReader()
+        const reader = new FileReader();
 
-        reader.readAsDataURL(file)
+        reader.readAsDataURL(file);
 
         reader.onload = () => {
-            const result = reader.result as string
+            const result = reader.result as string;
 
-            handleStateChange('image', result)
-        }
+            handleStateChange('image', result);
+        };
     };
 
     const handleStateChange = (fieldName: string, value: string) => {
@@ -101,7 +102,12 @@ const ProjectForm = ({ type, session }: Props) => {
                 setState={(value: string) => handleStateChange('category', value)}
             />
             <div className='flexStart w-full'>
-                <button>Create</button>
+                <Button
+                    title='Create'
+                    type='submit'
+                    leftIcon={isSubmiting ? '' : '/plus.svg'}
+                    isSubmiting={isSubmiting}
+                />
             </div>
         </form>
     );
