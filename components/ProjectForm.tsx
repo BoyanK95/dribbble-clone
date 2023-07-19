@@ -13,7 +13,19 @@ type Props = {
 };
 
 const ProjectForm = ({ type, session }: Props) => {
-    const handleFormSubmit = (e: React.FormEvent) => {};
+    const handleFormSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        setIsSubmiting(true);
+
+        try {
+            if (type === 'create') {
+                //create project
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
         e.preventDefault();
