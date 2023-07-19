@@ -1,7 +1,6 @@
 import { ProjectForm } from '@/common.type';
 import { createUserMutation, getUserQuery } from '@/graphql';
 import { GraphQLClient } from 'graphql-request';
-import { json } from 'stream/consumers';
 
 const isProduction = process.env.NODE_ENV === 'production';
 const apiUrl = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || '' : 'http://127.0.0.1:4000/graphql';
@@ -39,12 +38,12 @@ export const createUser = (name: string, email: string, avatarUrl: string) => {
 
 const uploadImage = async (imagePath: string) => {
     try {
-        const responce = await fetch(`${serverUrl}/api/upload`, {
+        const response = await fetch(`${serverUrl}/api/upload`, {
             method: 'POST',
             body: JSON.stringify({path: imagePath})
         })
 
-        return responce.json()
+        return response.json()
     } catch (error) {
         throw error
     }
