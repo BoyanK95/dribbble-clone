@@ -17,6 +17,15 @@ const makeGraphQLRequest = async (query: string, variables = {}) => {
     }
 };
 
+export const fetchToken = async () => {
+    try {
+        const responce = await fetch(`${serverUrl}/api/auth/token`);
+        return responce.json()
+    } catch (error) {
+        throw error
+    }
+};
+
 export const getUser = (email: string) => {
     client.setHeader('x-api-key', apiKey);
     return makeGraphQLRequest(getUserQuery, { email });
@@ -40,19 +49,21 @@ const uploadImage = async (imagePath: string) => {
     try {
         const response = await fetch(`${serverUrl}/api/upload`, {
             method: 'POST',
-            body: JSON.stringify({path: imagePath})
-        })
+            body: JSON.stringify({ path: imagePath })
+        });
 
-        return response.json()
+        return response.json();
     } catch (error) {
-        throw error
+        throw error;
     }
-}
+};
 
 export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
-    const imageUrl = await uploadImage(form.image)
+    const imageUrl = await uploadImage(form.image);
 
     if (imageUrl.url) {
+        client.setHeader('Authorization', `Bearer ${token}`);
+
         const variables = {
             input: {
                 ...form,
@@ -61,8 +72,8 @@ export const createNewProject = async (form: ProjectForm, creatorId: string, tok
                     link: creatorId
                 }
             }
-        }
+        };
 
-        return makeGraphQLRequest(createProjectMutation, variables)
+        return makeGraphQLRequest(createProjectMutation, variables);
     }
-}
+};
