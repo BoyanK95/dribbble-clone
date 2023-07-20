@@ -1,5 +1,5 @@
 import { ProjectForm } from '@/common.type';
-import { createUserMutation, getUserQuery } from '@/graphql';
+import { createProjectMutation, createUserMutation, getUserQuery } from '@/graphql';
 import { GraphQLClient } from 'graphql-request';
 
 const isProduction = process.env.NODE_ENV === 'production';
@@ -49,6 +49,20 @@ const uploadImage = async (imagePath: string) => {
     }
 }
 
-export const createNewProject = async (form: ProjectForm, categoryId: string, token: string) => {
-    const imgUrl = await uploadImage(form.image)
+export const createNewProject = async (form: ProjectForm, creatorId: string, token: string) => {
+    const imageUrl = await uploadImage(form.image)
+
+    if (imageUrl.url) {
+        const variables = {
+            input: {
+                ...form,
+                image: imageUrl.url,
+                createdBy: {
+                    link: creatorId
+                }
+            }
+        }
+
+        return makeGraphQLRequest(createProjectMutation, variables)
+    }
 }
