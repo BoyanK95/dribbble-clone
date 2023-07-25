@@ -28,7 +28,7 @@ const CustomMenu = ({ title, state, filters, setState }: Props) => {
                                 type='button'
                                 className='custom_menu-item'
                                 value={tag}
-                                onClick={(e) => e.currentTarget.value}
+                                onClick={(e) => setState(e.currentTarget.value)}
                             >
                                 {tag}
                             </button>
