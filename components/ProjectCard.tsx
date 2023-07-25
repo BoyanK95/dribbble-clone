@@ -1,9 +1,18 @@
-import React from 'react'
+import React from 'react';
 
-const ProjectCard = () => {
-  return (
-    <div>ProjectCard</div>
-  )
-}
+type Props = {
+    id: string;
+    image: string;
+    title: string;
+    name: string;
+    avatarUrl: string;
+    userId: string;
+};
 
-export default ProjectCard
+const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
+    return <div>
+        
+    </div>;
+};
+
+export default ProjectCard;
