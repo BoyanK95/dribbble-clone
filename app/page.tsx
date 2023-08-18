@@ -23,7 +23,6 @@ const Home = async () => {
         return (
             <section className='flexStart flex-col paddings'>
                 TO DO Categories
-
                 <p className='no-result-text text-center'>No projects found, go create some first.</p>
             </section>
         );
@@ -32,9 +31,19 @@ const Home = async () => {
     return (
         <section className='flex-start flex-col paddings mb-16'>
             <h1>Categories</h1>
-            
-            <section className='project-grid'>
-                {projectToDisplay.map(({node} : {node: ProjectInterface}) => <ProjectCard />)}
+
+            <section className='projects-grid'>
+                {projectToDisplay.map(({ node }: { node: ProjectInterface }) => (
+                    <ProjectCard
+                        key={node?.id}
+                        id={node?.id}
+                        image={node?.image}
+                        title={node?.title}
+                        name={node?.createdBy?.name}
+                        avatarUrl={node?.createdBy?.avatarUrl}
+                        userId={node?.createdBy?.id}
+                    />
+                ))}
             </section>
 
             <h1>LoadMore</h1>
