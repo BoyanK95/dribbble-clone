@@ -1,6 +1,7 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 type Props = {
     id: string;
@@ -12,6 +13,14 @@ type Props = {
 };
 
 const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
+    const [randomLikes, setRandomLikes] = useState(0);
+    const [randomViews, setRandomViews] = useState('');
+
+    useEffect(() => {
+        setRandomLikes(Math.floor(Math.random() * 1000));
+        setRandomViews(`${(Math.random() * 1000).toFixed(1)}k`);
+    }, []);
+
     return (
         <div className='flexCenter flex-col rounded-2xl drop-shadow-card'>
             <Link href={`/project/${id}`} className='flexCenter group relative w-full h-full'>
@@ -34,6 +43,18 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
                         <p>{name}</p>
                     </div>
                 </Link>
+                <div className='flexCenter gap-3'>
+                    <div className='flexCenter gap-2'>
+                        <Image src='/hearth.svg' width={13} height={12} alt='hearth' />
+                        <p className='text-sm'>{randomLikes}</p>
+                    </div>
+                </div>
+                <div className='flexCenter gap-3'>
+                    <div className='flexCenter gap-2'>
+                        <Image src='/eye.svg' width={13} height={12} alt='eye' />
+                        <p className='text-sm'>{randomViews}</p>
+                    </div>
+                </div>
             </div>
         </div>
     );
